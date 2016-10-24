@@ -3,14 +3,42 @@ var React = require('react');
 
 
 var FlavorPopularityInstructions = React.createClass({
+  componentWillMount: function(){
+
+    this.showInstructions = false;
+  },
+  handleClick: function(e){
+    e.preventDefault();
+    
+    this.showInstructions = !this.showInstructions;
+    this.forceUpdate();
+  },
   render: function(){
+    console.warn(this.showInstructions);
+
+    var display;
+    if(this.showInstructions){
+      display = (
+        <p>
+          We poll for most popular ice cream flavors!!
+          Number of flavors: {this.props.flavors.length}
+        </p>
+      );
+    }
+
     return (
       <div className="well">
-        We poll for most popular ice cream flavors!! Number of flavors: {this.props.flavors.length}
+        <button className="btn btn-success" onClick={this.handleClick}>Show Instructions</button>
+        {display}
       </div>
     );
   }
 });
+
+
+// class IceCreamFlavorListComponent extend React.Component {
+//
+// }
 
 var IceCreamFlavorListComponent = React.createClass({
     componentDidMount: function(){
@@ -48,6 +76,8 @@ var IceCreamFlavorListComponent = React.createClass({
         <div>
           <h1>Flavor Flav!</h1>
 
+          <Add num1={1} num2={2} />
+
           <FlavorPopularityInstructions flavors={this.props.collection}/>
 
           <ul>
@@ -57,6 +87,23 @@ var IceCreamFlavorListComponent = React.createClass({
       )
     }
 });
+
+
+function add(number1, number2){
+  console.log(arguments);
+  console.log(number1 + number2);
+}
+
+add(1, 2, 3);
+
+var Add = React.createClass({
+    render: function(){
+      console.log(this.props.num1 + this.props.num2);
+      return <div/>;
+    }
+});
+
+
 
 
 
